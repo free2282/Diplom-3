@@ -62,13 +62,7 @@ public class RegistrationTest
     @Test
     public void registrationTest()
     {
-        registerPage.setName(userCreateRequestModel.getName());
-        registerPage.setEmail(userCreateRequestModel.getEmail());
-        registerPage.setPassword(userCreateRequestModel.getPassword());
-
-        registerPage.clickRegistration();
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.waitLoadLoginPage();
+        registerPage.registrateUser();
 
         assertEquals(LOGIN_URL, driver.getCurrentUrl());
     }
@@ -79,17 +73,14 @@ public class RegistrationTest
     {
         userCreateRequestModel.setPassword("12345");
 
-        registerPage.setName(userCreateRequestModel.getName());
-        registerPage.setEmail(userCreateRequestModel.getEmail());
-        registerPage.setPassword(userCreateRequestModel.getPassword());
-
-        registerPage.clickRegistration();
+        registerPage.registrateUserWrongPassword();
         registerPage.findTextErrorWrongPassword();
     }
 
     @After
     public void setDown()
     {
+
         driver.quit();
     }
 

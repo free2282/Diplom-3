@@ -1,6 +1,7 @@
 package transition;
 
 import api.UserApi;
+import base.test.BaseTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
@@ -34,13 +35,14 @@ public class TransitionBetweenPageTest
 {
     private MainPage mainPage;
     private WebDriver driver;
-    private UserApi userApi;
     private String token;
     private LoginPage loginPage;
-    private UserCreateRequestModel userCreateRequestModel;
     private AccountPage accountPage;
     private Browser browser;
     private WebDriverManagment webDriverManagment;
+    private BaseTest baseTest;
+    private String password;
+    private String email;
 
     public TransitionBetweenPageTest(Browser browser)
     {
@@ -59,23 +61,16 @@ public class TransitionBetweenPageTest
     @Before
     public void setUp()
     {
-        userApi = new UserApi();
-        userCreateRequestModel = generateUser();
-        Response response = userApi.createUser(userCreateRequestModel);
-        UserCreateResponseModel userCreateResponseModel = response.body().as(UserCreateResponseModel.class);
-        token = userCreateResponseModel.getAccessToken();
+        mainPage = new MainPage(driver);
+        accountPage = new AccountPage(driver);
+        baseTest = new BaseTest();
 
         webDriverManagment = new WebDriverManagment();
         driver = webDriverManagment.setDriver(browser);
         driver.get(LOGIN_URL);
-        loginPage = new LoginPage(driver);
-        mainPage = new MainPage(driver);
-        accountPage = new AccountPage(driver);
 
-        loginPage.setEmail(userCreateRequestModel.getEmail());
-        loginPage.setPassword(userCreateRequestModel.getPassword());
-        loginPage.clickEnterButton();
-        mainPage.waitCreateOrderButton();
+        baseTest.createUserForTestApi();
+        baseTest.logInAfterRegistrationUI(driver);
     }
     @DisplayName("Проверка перехода к странице личного профиля из главной страницы")
     @Description("создание, авторизация, переход в профиль из галвной страницы, удаление аккаунта")
@@ -111,8 +106,7 @@ public class TransitionBetweenPageTest
     @After
     public void setDown()
     {
-        UserDeleteRequestModel userDeleteRequestModel = new UserDeleteRequestModel(userCreateRequestModel.getEmail(), userCreateRequestModel.getPassword());
-        userApi.deleteUser(userDeleteRequestModel,token);
+        baseTest.deleteUserAfterTestApi();
         driver.quit();
     }
 

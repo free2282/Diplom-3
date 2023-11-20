@@ -1,39 +1,33 @@
-package login;
+package personal.account;
 
 import api.UserApi;
-import groovy.util.logging.Log;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.test.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
 import model.request.UserCreateRequestModel;
-import model.request.UserDeleteRequestModel;
-import model.response.UserCreateResponseModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import page.AccountPage;
 import page.LoginPage;
 import page.MainPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
 
-import static generator.UserGenerator.generateUser;
 import static org.junit.Assert.assertTrue;
 import static url.UrlConfig.*;
-import static url.UrlConfig.RESSET_PASSWORD_URL;
 import static webdriver.Browser.CHROME;
 import static webdriver.Browser.YANDEX;
 
 @RunWith(Parameterized.class)
-public class LoginPageExitTest
+public class AccountPageExitTest
 {
     private WebDriver driver;
     private UserApi userApi;
+    private BaseTest baseTest;
     private UserCreateRequestModel userCreateRequestModel;
     private String token;
     private LoginPage loginPage;
@@ -41,8 +35,10 @@ public class LoginPageExitTest
     private AccountPage accountPage;
     private Browser browser;
     private WebDriverManagment webDriverManagment;
+    private String password;
+    private String login;
 
-    public LoginPageExitTest(Browser browser)
+    public AccountPageExitTest(Browser browser)
     {
         this.browser = browser;
     }
@@ -59,22 +55,17 @@ public class LoginPageExitTest
     @Before
     public void setUp()
     {
-        userApi = new UserApi();
-        userCreateRequestModel = generateUser();
-        Response response = userApi.createUser(userCreateRequestModel);
-        UserCreateResponseModel userCreateResponseModel = response.body().as(UserCreateResponseModel.class);
-        token = userCreateResponseModel.getAccessToken();
-
         webDriverManagment = new WebDriverManagment();
         driver = webDriverManagment.setDriver(browser);
         driver.get(LOGIN_URL);
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
         accountPage = new AccountPage(driver);
+        baseTest = new BaseTest();
 
-        loginPage.setEmail(userCreateRequestModel.getEmail());
-        loginPage.setPassword(userCreateRequestModel.getPassword());
-        loginPage.clickEnterButton();
+
+        baseTest.createUserForTestApi();
+        baseTest.logInAfterRegistrationUI(driver);
     }
 
     @DisplayName("Проверка выхода из аккаунта")
@@ -93,8 +84,7 @@ public class LoginPageExitTest
     @After
     public void setDown()
     {
-        UserDeleteRequestModel userDeleteRequestModel = new UserDeleteRequestModel(userCreateRequestModel.getEmail(), userCreateRequestModel.getPassword());
-        userApi.deleteUser(userDeleteRequestModel, token);
+        baseTest.deleteUserAfterTestApi();
 
         driver.quit();
     }

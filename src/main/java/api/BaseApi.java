@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
+import static url.UrlConfig.MAIN_API_URL;
 
 public class BaseApi
 {
@@ -16,6 +17,6 @@ public class BaseApi
         return given()
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
-                .contentType(ContentType.JSON);
+                .contentType(ContentType.JSON).baseUri(MAIN_API_URL);
     }
 }

@@ -15,14 +15,14 @@ public class UserApi extends BaseApi
     {
         return baseRequest()
                 .body(userApiRequestModel)
-                .post(MAIN_API_URL + CREATE_USER_URL_API);
+                .post(CREATE_USER_URL_API);
     }
     @Step("Отправка запроса на ручку по входу пользователя")
     public Response loginUser(UserLoginRequestModel userLoginRequestModel)
     {
         return baseRequest()
                 .body(userLoginRequestModel)
-                .post(MAIN_API_URL + LOGIN_USER_URL_API);
+                .post(LOGIN_USER_URL_API);
     }
 
     @Step("Отправка запроса на ручку по удалению пользователя с его токеном")
@@ -31,6 +31,6 @@ public class UserApi extends BaseApi
         return baseRequest()
                 .header("Authorization", accessToken)
                 .body(userDeleteRequestModel)
-                .delete(MAIN_API_URL + UPDATE_DELETE_USER_URL_API);
+                .delete(UPDATE_DELETE_USER_URL_API);
     }
 }

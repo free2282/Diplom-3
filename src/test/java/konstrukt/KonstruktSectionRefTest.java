@@ -50,20 +50,32 @@ public class KonstruktSectionRefTest
     }
 
 
-    @DisplayName("Проверка переходов к разделам")
-    @Description("Поэтапная проверка перехода по разделам, нажимая сначала соусы, начинки, булки")
+    @DisplayName("Проверка переходов к разделу соусы")
     @Test
-    public void checkBurgerSectionRef()
+    public void checkSauseRefTest()
     {
         mainPage.clickSauseButton();
         assertTrue(mainPage.isSauseSectionVisible());
+    }
 
+    @DisplayName("Проверка переходов к разделу начинки")
+    @Test
+    public void checkFilingRefTest()
+    {
         mainPage.clickFillingButton();
         assertTrue(mainPage.isFillingSectionVisible());
+    }
+
+    @DisplayName("Проверка переходов к разделу булки")
+    @Test
+    public void checkBreadRefTest()
+    {
+        mainPage.clickFillingButton();
 
         mainPage.clickBreadButton();
         assertTrue(mainPage.isBreadSectionVisible());
     }
+
 
     @After
     public void setDown()

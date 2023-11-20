@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,57 +29,55 @@ public class MainPage
     private final By fillingButton = By.xpath(".//span[text()='Начинки']");
     private final By fillingText = By.xpath(".//h2[text()='Начинки']");
 
+
+    @Step("Переход по ссылке 'Соусы' на главной странице")
     public void clickSauseButton()
     {
         driver.findElement(sauceButton).click();
     }
 
+    @Step("Переход по ссылке 'Начинки' на главной странице")
     public void clickFillingButton()
     {
         driver.findElement(fillingButton).click();
     }
 
+    @Step("Переход по ссылке 'Булки' на главной странице")
     public void clickBreadButton()
     {
         driver.findElement(breadButton).click();
     }
 
+    @Step("Проверка видимости строки 'Соусы' на главной странице")
     public boolean isSauseSectionVisible()
     {
         return driver.findElement(sauceText).isDisplayed();
     }
-
+    @Step("Проверка видимости строки 'Начинки' на главной странице")
     public boolean isFillingSectionVisible()
     {
         return driver.findElement(fillingText).isDisplayed();
     }
 
+    @Step("Проверка видимости строки 'Булки' на главной странице")
     public boolean isBreadSectionVisible()
     {
         return driver.findElement(breadText).isDisplayed();
     }
-
+    @Step("переход по кнопке 'Личный кабинет' на главной странице")
     public void clickPersonalAccount()
     {
         driver.findElement(personalAccount).click();
     }
+    @Step("Проверка видимости кнокпи 'Оформить заказ' на главной странице")
 
     public boolean createOrderButtonVisible() {
         return driver.findElement(createOrderButton).isDisplayed();
     }
-    public boolean loginButton()
-    {
-        return driver.findElement(loginButton).isDisplayed();
-    }
-
+    @Step("Ожидание 4 секунды, когда появится кнопка 'Оформить заказ' на главной странице")
     public void waitCreateOrderButton()
     {
         new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(createOrderButton));
         driver.findElement(createOrderButton);
-    }
-
-    public void waitLoadMainPage()
-    {
-        new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.urlToBe(MAIN_URL));
     }
 }
