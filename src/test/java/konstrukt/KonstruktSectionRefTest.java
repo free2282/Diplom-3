@@ -10,9 +10,6 @@ import org.openqa.selenium.WebDriver;
 import page.MainPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
-
-import java.io.IOException;
-
 import static org.junit.Assert.assertTrue;
 import static url.UrlConfig.MAIN_URL;
 import static webdriver.Browser.CHROME;

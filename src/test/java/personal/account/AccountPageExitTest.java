@@ -1,10 +1,8 @@
 package personal.account;
 
-import api.UserApi;
 import base.test.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import model.request.UserCreateRequestModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,17 +24,12 @@ import static webdriver.Browser.YANDEX;
 public class AccountPageExitTest
 {
     private WebDriver driver;
-    private UserApi userApi;
     private BaseTest baseTest;
-    private UserCreateRequestModel userCreateRequestModel;
-    private String token;
     private LoginPage loginPage;
     private MainPage mainPage;
     private AccountPage accountPage;
     private Browser browser;
     private WebDriverManagment webDriverManagment;
-    private String password;
-    private String login;
 
     public AccountPageExitTest(Browser browser)
     {
@@ -57,14 +50,13 @@ public class AccountPageExitTest
     {
         webDriverManagment = new WebDriverManagment();
         driver = webDriverManagment.setDriver(browser);
-        driver.get(LOGIN_URL);
-        loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
         accountPage = new AccountPage(driver);
         baseTest = new BaseTest();
+        loginPage = new LoginPage(driver);
+        driver.get(LOGIN_URL);
 
-
-        baseTest.createUserForTestApi();
+        baseTest.createUserApiForTest();
         baseTest.logInAfterRegistrationUI(driver);
     }
 

@@ -18,7 +18,7 @@ public class BaseTest
     private String token;
     private LoginPage loginPage;
     private MainPage mainPage;
-    public void createUserForTestApi()
+    public void createUserApiForTest()
     {
         userApi = new UserApi();
         userCreateRequestModel = generateUser();

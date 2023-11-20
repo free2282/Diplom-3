@@ -1,7 +1,5 @@
 package registration;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import model.request.UserCreateRequestModel;
 import org.junit.After;
@@ -10,12 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import page.LoginPage;
 import page.RegisterPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
-
 import static generator.UserGenerator.generateUser;
 import static junit.framework.TestCase.assertEquals;
 import static url.UrlConfig.LOGIN_URL;

@@ -19,7 +19,6 @@ public class MainPage
         this.driver = driver;
     }
 
-    private final By loginButton = By.xpath(".//button[text()='Войти в аккаунт']");
     private final By personalAccount = By.xpath(".//*[text()='Личный Кабинет']");
     private final By createOrderButton = By.xpath(".//*[text()='Оформить заказ']");
     private final By breadButton = By.xpath(".//span[text()='Булки']");

@@ -1,13 +1,12 @@
 package login;
 import static org.apache.http.HttpStatus.*;
 import api.UserApi;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.test.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import model.request.UserCreateRequestModel;
 import model.request.UserDeleteRequestModel;
-import model.response.UserCreateResponseModel;
 import model.response.UserDeleteResponseModel;
 import org.junit.After;
 import org.junit.Test;
@@ -20,9 +19,6 @@ import page.MainPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
 
-import java.io.IOException;
-
-import static generator.UserGenerator.generateUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static url.UrlConfig.*;
@@ -43,6 +39,7 @@ public class LoginPageCheckTest
     private String token;
     private WebDriverManagment webDriverManagment;
     private Browser browser;
+    private BaseTest baseTest;
         public LoginPageCheckTest(String url, String button, Browser browser)
         {
             this.url = url;
@@ -71,24 +68,21 @@ public class LoginPageCheckTest
         public void accountToLoginPageRefCheck()
         {
             //генерируем пользователя, достаем его токен
-            userApi = new UserApi();
-            userCreateRequestModel = generateUser();
-
-            Response response = userApi.createUser(userCreateRequestModel);
-            UserCreateResponseModel userCreateResponseModel = response.body().as(UserCreateResponseModel.class);
-            token = userCreateResponseModel.getAccessToken();
+            baseTest = new BaseTest();
+            baseTest.createUserApiForTest();
 
             webDriverManagment = new WebDriverManagment();
             driver = webDriverManagment.setDriver(browser);
             driver.get(url);
 
-            driver.findElement(By.xpath(".//*[text()='" + button + "']")).click();
-
             loginPage = new LoginPage(driver);
             mainPage = new MainPage(driver);
 
-            loginPage.setEmail(userCreateRequestModel.getEmail());
-            loginPage.setPassword(userCreateRequestModel.getPassword());
+            driver.findElement(By.xpath(".//*[text()='" + button + "']")).click();
+
+
+            loginPage.setEmail(baseTest.getUserCreateRequestModel().getEmail());
+            loginPage.setPassword(baseTest.getUserCreateRequestModel().getPassword());
             loginPage.clickEnterButton();
 
             mainPage.waitCreateOrderButton();
@@ -98,12 +92,7 @@ public class LoginPageCheckTest
         @After
         public void setDown()
         {
-            userDeleteRequestModel = new UserDeleteRequestModel(userCreateRequestModel.getEmail(), userCreateRequestModel.getPassword());
-            Response responseOfDeleting = userApi.deleteUser(userDeleteRequestModel, token);
-            UserDeleteResponseModel userDeleteResponseModel = responseOfDeleting.body().as(UserDeleteResponseModel.class);
-
-            assertEquals(SC_ACCEPTED, responseOfDeleting.getStatusCode());
-            assertTrue(userDeleteResponseModel.isSuccess());
+            baseTest.deleteUserAfterTestApi();
             driver.quit();
         }
 }
