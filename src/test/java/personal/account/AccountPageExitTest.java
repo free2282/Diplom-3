@@ -2,6 +2,7 @@ package personal.account;
 
 import base.test.BaseTest;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -60,6 +61,7 @@ public class AccountPageExitTest
         baseTest.logInAfterRegistrationUI(driver);
     }
 
+    @Step("Проверка выхода из аккаунта")
     @DisplayName("Проверка выхода из аккаунта")
     @Description("Создание аккаунта, авторизация, переход в личный профиль и выход из аккаунта. В конце теста удаление аккаунта")
     @Test

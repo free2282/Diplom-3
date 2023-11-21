@@ -1,5 +1,6 @@
 package registration;
 
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import model.request.UserCreateRequestModel;
 import org.junit.After;
@@ -53,6 +54,7 @@ public class RegistrationTest
         driver.get(REGISTRATION_URL);
     }
 
+    @Step("Проверка регистрации пользователя")
     @DisplayName("Проверка регистрации пользователя")
     @Test
     public void registrationTest()
@@ -62,6 +64,7 @@ public class RegistrationTest
         assertEquals(LOGIN_URL, driver.getCurrentUrl());
     }
 
+    @Step("Проверка несоздания аккаунта при пароле меньше 6 символов")
     @DisplayName("Проверка несоздания аккаунта при пароле меньше 6 символов")
     @Test
     public void errorPasswordRegistrationTest()

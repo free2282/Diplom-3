@@ -3,6 +3,7 @@ import static org.apache.http.HttpStatus.*;
 import api.UserApi;
 import base.test.BaseTest;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import model.request.UserCreateRequestModel;
@@ -62,6 +63,7 @@ public class LoginPageCheckTest
             };
         }
 
+        @Step("Проверка перехода к странице авторизации")
         @DisplayName("Проверка перехода к странице авторизации")
         @Description("Создание аккаунта, переход на страницу, где есть ссылка, авторизация, удаление аккаунта")
         @Test

@@ -1,5 +1,6 @@
 package konstrukt;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class KonstruktSectionRefTest
         driver.get(MAIN_URL);
     }
 
-
+    @Step("Проверка переходов к разделу соусы")
     @DisplayName("Проверка переходов к разделу соусы")
     @Test
     public void checkSauseRefTest()
@@ -55,6 +56,7 @@ public class KonstruktSectionRefTest
         assertTrue(mainPage.isSauseSectionVisible());
     }
 
+    @Step("Проверка переходов к разделу начинки")
     @DisplayName("Проверка переходов к разделу начинки")
     @Test
     public void checkFilingRefTest()
@@ -63,6 +65,7 @@ public class KonstruktSectionRefTest
         assertTrue(mainPage.isFillingSectionVisible());
     }
 
+    @Step("Проверка переходов к разделу булки")
     @DisplayName("Проверка переходов к разделу булки")
     @Test
     public void checkBreadRefTest()

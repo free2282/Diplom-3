@@ -2,6 +2,7 @@ package transition;
 
 import base.test.BaseTest;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -56,6 +57,8 @@ public class TransitionBetweenPageTest
         baseTest.createUserApiForTest();
         baseTest.logInAfterRegistrationUI(driver);
     }
+
+    @Step("Проверка перехода к странице личного профиля из главной страницы")
     @DisplayName("Проверка перехода к странице личного профиля из главной страницы")
     @Description("создание, авторизация, переход в профиль из галвной страницы, удаление аккаунта")
     @Test
@@ -68,6 +71,7 @@ public class TransitionBetweenPageTest
         assertTrue(accountPage.checkButtonSave());
     }
 
+    @Step("Проверка перехода к странице конструктора по логотипу и тексту конструктор")
     @DisplayName("Проверка перехода к странице конструктора по логотипу и тексту конструктор")
     @Description("создание, авторизация, переход в профиль из галвной страницы, клик по тексту конструктор, потом переход в личный кабинет и потом клик по логотипу, потом удаление аккаунта")
     @Test

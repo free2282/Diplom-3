@@ -23,12 +23,12 @@ public class LoginPage
         this.driver = driver;
     }
 
-    @Step("Передаем поле email данные на странцие авторизации")
+    @Step("Передаем в поле email данные на странцие авторизации")
     public void setEmail(String email)
     {
         driver.findElement(emailInput).sendKeys(email);
     }
-    @Step("Передаем поле пароль данные на странцие авторизации")
+    @Step("Передаем в поле пароль данные на странцие авторизации")
     public void setPassword(String password)
     {
         driver.findElement(passwordInput).sendKeys(password);
