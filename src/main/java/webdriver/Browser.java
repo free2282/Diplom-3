@@ -1,7 +1,6 @@
 package webdriver;
 
-public enum Browser
-{
+public enum Browser {
     CHROME,
     YANDEX,
 }

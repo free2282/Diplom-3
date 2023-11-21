@@ -1,5 +1,5 @@
 package konstrukt;
-import io.qameta.allure.Description;
+
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -11,27 +11,25 @@ import org.openqa.selenium.WebDriver;
 import page.MainPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
+
 import static org.junit.Assert.assertTrue;
 import static url.UrlConfig.MAIN_URL;
 import static webdriver.Browser.CHROME;
 import static webdriver.Browser.YANDEX;
 
 @RunWith(Parameterized.class)
-public class KonstruktSectionRefTest
-{
+public class KonstruktSectionRefTest {
     private MainPage mainPage;
     private WebDriver driver;
-    private Browser browser;
+    private final Browser browser;
     private WebDriverManagment webDriverManagment;
 
-    public KonstruktSectionRefTest(Browser browser)
-    {
+    public KonstruktSectionRefTest(Browser browser) {
         this.browser = browser;
     }
 
     @Parameterized.Parameters
-    public static Object[][] getEnterAccount()
-    {
+    public static Object[][] getEnterAccount() {
         return new Object[][]{
                 {YANDEX},
                 {CHROME},
@@ -50,8 +48,7 @@ public class KonstruktSectionRefTest
     @Step("Проверка переходов к разделу соусы")
     @DisplayName("Проверка переходов к разделу соусы")
     @Test
-    public void checkSauseRefTest()
-    {
+    public void checkSauseRefTest() {
         mainPage.clickSauseButton();
         assertTrue(mainPage.isSauseSectionVisible());
     }
@@ -59,8 +56,7 @@ public class KonstruktSectionRefTest
     @Step("Проверка переходов к разделу начинки")
     @DisplayName("Проверка переходов к разделу начинки")
     @Test
-    public void checkFilingRefTest()
-    {
+    public void checkFilingRefTest() {
         mainPage.clickFillingButton();
         assertTrue(mainPage.isFillingSectionVisible());
     }
@@ -68,8 +64,7 @@ public class KonstruktSectionRefTest
     @Step("Проверка переходов к разделу булки")
     @DisplayName("Проверка переходов к разделу булки")
     @Test
-    public void checkBreadRefTest()
-    {
+    public void checkBreadRefTest() {
         mainPage.clickFillingButton();
 
         mainPage.clickBreadButton();
@@ -78,8 +73,7 @@ public class KonstruktSectionRefTest
 
 
     @After
-    public void setDown()
-    {
+    public void setDown() {
         driver.quit();
     }
 }

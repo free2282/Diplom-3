@@ -1,11 +1,10 @@
 package model.response;
 
-public class UserCreateResponseModel
-{
+public class UserCreateResponseModel {
+    public String refreshToken;
     private Boolean success;
     private UserCreate userCreate;
     private String accessToken;
-    public String refreshToken;
 
     public UserCreateResponseModel(boolean success, UserCreate userCreate, String accessToken, String refreshToken) {
         this.success = success;

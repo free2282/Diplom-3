@@ -11,15 +11,14 @@ import page.MainPage;
 
 import static generator.UserGenerator.generateUser;
 
-public class BaseTest
-{
+public class BaseTest {
     private UserApi userApi;
     private UserCreateRequestModel userCreateRequestModel;
     private String token;
     private LoginPage loginPage;
     private MainPage mainPage;
-    public void createUserApiForTest()
-    {
+
+    public void createUserApiForTest() {
         userApi = new UserApi();
         userCreateRequestModel = generateUser();
         Response response = userApi.createUser(userCreateRequestModel);
@@ -27,20 +26,17 @@ public class BaseTest
         token = userCreateResponseModel.getAccessToken();
     }
 
-    public void deleteUserAfterTestApi()
-    {
+    public void deleteUserAfterTestApi() {
         UserDeleteRequestModel userDeleteRequestModel = new UserDeleteRequestModel(userCreateRequestModel.getEmail(), userCreateRequestModel.getPassword());
-        userApi.deleteUser(userDeleteRequestModel,token);
+        userApi.deleteUser(userDeleteRequestModel, token);
     }
 
-    public void deleteUserAfterTestApi(String email, String password)
-    {
+    public void deleteUserAfterTestApi(String email, String password) {
         UserDeleteRequestModel userDeleteRequestModel = new UserDeleteRequestModel(email, password);
-        userApi.deleteUser(userDeleteRequestModel,token);
+        userApi.deleteUser(userDeleteRequestModel, token);
     }
 
-    public void logInAfterRegistrationUI(WebDriver driver)
-    {
+    public void logInAfterRegistrationUI(WebDriver driver) {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 
@@ -50,13 +46,12 @@ public class BaseTest
         loginPage.clickEnterButton();
         mainPage.waitCreateOrderButton();
     }
-    public String getToken()
-    {
+
+    public String getToken() {
         return token;
     }
 
-    public UserCreateRequestModel getUserCreateRequestModel()
-    {
+    public UserCreateRequestModel getUserCreateRequestModel() {
         return userCreateRequestModel;
     }
 }

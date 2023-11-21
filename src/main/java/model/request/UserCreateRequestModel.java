@@ -1,7 +1,6 @@
 package model.request;
 
-public class UserCreateRequestModel
-{
+public class UserCreateRequestModel {
     private String email;
     private String password;
     private String name;

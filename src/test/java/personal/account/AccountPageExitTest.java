@@ -17,29 +17,26 @@ import webdriver.Browser;
 import webdriver.WebDriverManagment;
 
 import static org.junit.Assert.assertTrue;
-import static url.UrlConfig.*;
+import static url.UrlConfig.LOGIN_URL;
 import static webdriver.Browser.CHROME;
 import static webdriver.Browser.YANDEX;
 
 @RunWith(Parameterized.class)
-public class AccountPageExitTest
-{
+public class AccountPageExitTest {
     private WebDriver driver;
     private BaseTest baseTest;
     private LoginPage loginPage;
     private MainPage mainPage;
     private AccountPage accountPage;
-    private Browser browser;
+    private final Browser browser;
     private WebDriverManagment webDriverManagment;
 
-    public AccountPageExitTest(Browser browser)
-    {
+    public AccountPageExitTest(Browser browser) {
         this.browser = browser;
     }
 
     @Parameterized.Parameters
-    public static Object[][] getEnterAccount()
-    {
+    public static Object[][] getEnterAccount() {
         return new Object[][]{
                 {YANDEX},
                 {CHROME},
@@ -47,8 +44,7 @@ public class AccountPageExitTest
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         webDriverManagment = new WebDriverManagment();
         driver = webDriverManagment.setDriver(browser);
         mainPage = new MainPage(driver);
@@ -65,8 +61,7 @@ public class AccountPageExitTest
     @DisplayName("Проверка выхода из аккаунта")
     @Description("Создание аккаунта, авторизация, переход в личный профиль и выход из аккаунта. В конце теста удаление аккаунта")
     @Test
-    public void exitFromAccountTest()
-    {
+    public void exitFromAccountTest() {
         mainPage.clickPersonalAccount();
         accountPage.waitButtonSave();
         accountPage.clickExit();
@@ -76,8 +71,7 @@ public class AccountPageExitTest
     }
 
     @After
-    public void setDown()
-    {
+    public void setDown() {
         baseTest.deleteUserAfterTestApi();
 
         driver.quit();

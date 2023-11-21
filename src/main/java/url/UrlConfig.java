@@ -1,7 +1,6 @@
 package url;
 
-public class UrlConfig
-{
+public class UrlConfig {
     public static final String MAIN_URL = "https://stellarburgers.nomoreparties.site/";
     public static final String REGISTRATION_URL = "https://stellarburgers.nomoreparties.site/register";
     public static final String LOGIN_URL = "https://stellarburgers.nomoreparties.site/login";

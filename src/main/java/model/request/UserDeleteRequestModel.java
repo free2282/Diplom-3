@@ -1,8 +1,8 @@
 package model.request;
-public class UserDeleteRequestModel
-{
-    private String email;
-    private String password;
+
+public class UserDeleteRequestModel {
+    private final String email;
+    private final String password;
 
     public UserDeleteRequestModel(String email, String password) {
         this.email = email;

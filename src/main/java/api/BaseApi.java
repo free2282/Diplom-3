@@ -9,11 +9,9 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static url.UrlConfig.MAIN_API_URL;
 
-public class BaseApi
-{
+public class BaseApi {
     @Step("Базовая запросов")
-    protected RequestSpecification baseRequest()
-    {
+    protected RequestSpecification baseRequest() {
         return given()
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())

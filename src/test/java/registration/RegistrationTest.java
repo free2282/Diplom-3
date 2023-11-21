@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import page.RegisterPage;
 import webdriver.Browser;
 import webdriver.WebDriverManagment;
+
 import static generator.UserGenerator.generateUser;
 import static junit.framework.TestCase.assertEquals;
 import static url.UrlConfig.LOGIN_URL;
@@ -20,22 +21,19 @@ import static webdriver.Browser.CHROME;
 import static webdriver.Browser.YANDEX;
 
 @RunWith(Parameterized.class)
-public class RegistrationTest
-{
+public class RegistrationTest {
     private RegisterPage registerPage;
     private WebDriver driver;
     private UserCreateRequestModel userCreateRequestModel;
-    private Browser browser;
+    private final Browser browser;
     private WebDriverManagment webDriverManagment;
 
-    public RegistrationTest(Browser browser)
-    {
+    public RegistrationTest(Browser browser) {
         this.browser = browser;
     }
 
     @Parameterized.Parameters
-    public static Object[][] getEnterAccount()
-    {
+    public static Object[][] getEnterAccount() {
         return new Object[][]{
                 {YANDEX},
                 {CHROME},
@@ -43,8 +41,7 @@ public class RegistrationTest
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         webDriverManagment = new WebDriverManagment();
         driver = webDriverManagment.setDriver(browser);
 
@@ -57,8 +54,7 @@ public class RegistrationTest
     @Step("Проверка регистрации пользователя")
     @DisplayName("Проверка регистрации пользователя")
     @Test
-    public void registrationTest()
-    {
+    public void registrationTest() {
         registerPage.registrateUser();
 
         assertEquals(LOGIN_URL, driver.getCurrentUrl());
@@ -67,8 +63,7 @@ public class RegistrationTest
     @Step("Проверка несоздания аккаунта при пароле меньше 6 символов")
     @DisplayName("Проверка несоздания аккаунта при пароле меньше 6 символов")
     @Test
-    public void errorPasswordRegistrationTest()
-    {
+    public void errorPasswordRegistrationTest() {
         userCreateRequestModel.setPassword("12345");
 
         registerPage.registrateUserWrongPassword();
@@ -76,8 +71,7 @@ public class RegistrationTest
     }
 
     @After
-    public void setDown()
-    {
+    public void setDown() {
 
         driver.quit();
     }
